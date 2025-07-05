@@ -32,7 +32,7 @@
 		get_template_part( 'templates/header/top', 'bar' );
 
 		// Page Header
-		get_template_part( 'templates/header/page', 'header' );
+		//get_template_part( 'templates/header/page', 'header' );
 
 		// Main Navigation
 		get_template_part( 'templates/header/main', 'navigation' );

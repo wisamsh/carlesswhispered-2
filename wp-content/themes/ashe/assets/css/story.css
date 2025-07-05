@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 * {
   box-sizing: border-box;
 }
@@ -7,6 +7,11 @@
   width: 100%;
   padding: 20px;
   text-align: center;
+  font-family: "Raleway", sans-serif;
+
+  font-optical-sizing: auto;
+  
+
 }
 .book-section > .container {
   min-height: 500px;
