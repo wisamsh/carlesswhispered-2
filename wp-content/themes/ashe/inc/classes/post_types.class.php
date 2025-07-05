@@ -49,7 +49,6 @@ public function __construct() {
 				'title',
 				'author',
 				'comments',
-				'editor',
 				'excerpt',
 				'revisions',
 				'thumbnail',
