@@ -41,21 +41,34 @@ function turnLeft() {
 
 let startX = 0;
 let endX = 0;
+const container = document.querySelector(".container");
 
-// Detect touch or mouse down
-document.querySelector(".container").addEventListener("pointerdown", (e) => {
-  startX = e.clientX || e.touches?.[0]?.clientX;
+// Mouse & touch start
+container.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+}, { passive: true });
+
+container.addEventListener("mousedown", (e) => {
+  startX = e.clientX;
 });
 
-// Detect touch or mouse up
-document.querySelector(".container").addEventListener("pointerup", (e) => {
-  endX = e.clientX || e.changedTouches?.[0]?.clientX;
+// Mouse & touch end
+container.addEventListener("touchend", (e) => {
+  endX = e.changedTouches[0].clientX;
+  handleSwipe();
+});
 
-  if (startX - endX > 50) {
-    // swipe left → turn right
-    turnRight();
-  } else if (endX - startX > 50) {
-    // swipe right → turn left
-    turnLeft();
+container.addEventListener("mouseup", (e) => {
+  endX = e.clientX;
+  handleSwipe();
+});
+
+// Swipe logic
+function handleSwipe() {
+  const deltaX = startX - endX;
+  if (deltaX > 50) {
+    turnRight(); // swipe left
+  } else if (deltaX < -50) {
+    turnLeft(); // swipe right
   }
-});
+}
