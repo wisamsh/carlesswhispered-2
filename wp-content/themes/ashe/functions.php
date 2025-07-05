@@ -3,6 +3,8 @@
 /* 
 ** Sets up theme defaults and registers support for various WordPress features
 */
+
+
 function ashe_setup() {
 
 	// Make theme available for translation
@@ -992,3 +994,12 @@ function ashe_register_recommended_plugins() {
 }
 
 // add_action( 'tgmpa_register', 'ashe_register_recommended_plugins' );
+
+add_filter('template_include', function($template) {
+    if (is_singular('story')) {
+        return get_template_directory() . '/single-story.php';
+    }
+    return $template;
+});
+require(get_template_directory().'/inc/classes/post_types.class.php');
+new WisamPostTypes;
