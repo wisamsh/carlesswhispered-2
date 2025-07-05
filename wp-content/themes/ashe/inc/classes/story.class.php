@@ -30,7 +30,9 @@ public function BookHtml(){
 	return 
     '<div class="book-section">
   <div class="container">
-    
+    <!-- Book spine strip -->
+    <div class="spine"></div>
+
     <!-- Page 4 (Back Cover) -->
     <div class="right">
       <figure class="back" id="back-cover">
@@ -78,14 +80,12 @@ public function BookHtml(){
         <p>A story of pages turning beautifully.</p>
       </figure>
     </div>
-
   </div>
 
-  <!-- Navigation Buttons -->
   <button onclick="turnLeft()">Prev</button>
   <button onclick="turnRight()">Next</button>
-  <br />
 </div>
+
 ';
 }
 

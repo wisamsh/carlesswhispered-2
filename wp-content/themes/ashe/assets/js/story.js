@@ -37,3 +37,25 @@ function turnLeft() {
     right[si - 1].style.zIndex = "auto";
   }, 350);
 }
+
+
+let startX = 0;
+let endX = 0;
+
+// Detect touch or mouse down
+document.querySelector(".container").addEventListener("pointerdown", (e) => {
+  startX = e.clientX || e.touches?.[0]?.clientX;
+});
+
+// Detect touch or mouse up
+document.querySelector(".container").addEventListener("pointerup", (e) => {
+  endX = e.clientX || e.changedTouches?.[0]?.clientX;
+
+  if (startX - endX > 50) {
+    // swipe left → turn right
+    turnRight();
+  } else if (endX - startX > 50) {
+    // swipe right → turn left
+    turnLeft();
+  }
+});
