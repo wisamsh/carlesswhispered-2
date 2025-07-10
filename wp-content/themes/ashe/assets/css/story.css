@@ -91,7 +91,7 @@
 .book-section > p {
   color: rgba(0, 0, 0, 0.7);
   font-family: calibri;
-  font-size: 24px;
+  font-size: 16px;
 }
 .book-section > p > a {
   text-decoration: none;
@@ -109,9 +109,9 @@
   padding: 0 30px;
 }
 .front#cover h1 {
-  color: ;
+  color: #444;
 }
 .front#cover p {
   color: rgba(0, 0, 0, 0.8);
-  font-size: 14px;
+  font-size: 11px;
 }
