@@ -2,6 +2,7 @@
 
 class StoryBook{
     
+    
 public function __construct() {
   add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
 }
@@ -26,14 +27,52 @@ public function __construct() {
 
 
 
+public function BookCover($coverphoto , $title , $slug = ''){
+ $s_title = $slug ? '<p>' . $slug . '</p>'  : ''; 
+  return '
+    <!-- Page 1 (Cover) -->
+    <div class="right">
+      <figure class="front bkcover" style="background-image: url('.$coverphoto.');">
+        <h2>'.$title.'</h2>';
+        $s_title .'
+        </figure>
+      <figure class="front" id="cover">
+        <h1>Book Title</h1>
+        <p>A story of pages turning beautifully.</p>
+      </figure>';
+$html.=$this->BookCover_back($coverphoto , $title , $slug = '', $dir='back');
+    $html .='</div>';
+}
+
+
+public function BookCover_back($coverphoto , $title , $slug = '', $dir='back'){
+ $s_title = $slug ? '<p>' . $slug . '</p>'  : ''; 
+  return '
+    
+      <figure class="'.$dir.'" id="front-cover" style="background-image: url('.$coverphoto.');">
+        <h1>Book Title</h1>
+        <p>A story of pages turning beautifully.</p>
+      </figure>
+    ';
+}
+
+
+
+
+
+
 public function BookHtml(){
-	return 
+$html = '';
+$html .= 
     '<div class="book-section">
   <div class="container">
     <!-- Book spine strip -->
     <div class="spine"></div>
+';
 
-    <!-- Page 4 (Back Cover) -->
+
+$html .='
+    <!-- Page 3 (Back Cover) -->
     <div class="right">
       <figure class="back" id="back-cover">
         <h2>Back Cover</h2>
@@ -45,7 +84,7 @@ public function BookHtml(){
       </figure>
     </div>
 
-    <!-- Page 3 -->
+    <!-- Page 2 -->
     <div class="right">
       <figure class="back" style="background-image: url();">
         <h2>Page 2</h2>
@@ -57,7 +96,7 @@ public function BookHtml(){
       </figure>
     </div>
 
-    <!-- Page 2 -->
+    <!-- Page 1 -->
     <div class="right">
       <figure class="back" style="background-image: url();">
         <h2>Page 1</h2>
@@ -68,25 +107,23 @@ public function BookHtml(){
         <p>This is the content on the right side of page 1.</p>
       </figure>
     </div>
+';
 
-    <!-- Page 1 (Cover) -->
-    <div class="right">
-      <figure class="back" style="background-image: url();">
-        <h2>Inside Cover</h2>
-        <p>Welcome to the book!</p>
-      </figure>
-      <figure class="front" id="cover">
-        <h1>Book Title</h1>
-        <p>A story of pages turning beautifully.</p>
-      </figure>
-    </div>
-  </div>
+
+$thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
+
+$html .= $this->BookCover(esc_url($thumbnail_url) ,  get_field('story_title', get_the_ID()) , get_field('summery', get_the_ID()));
+ 
+
+
+ $html .='</div></div>
 
   <button onclick="turnLeft()">Prev</button>
   <button onclick="turnRight()">Next</button>
 </div>
 
 ';
+return $html;
 }
 
 
