@@ -36,23 +36,21 @@ public function BookCover($coverphoto , $title , $slug = ''){
         <h2>'.$title.'</h2>';
         $s_title .'
         </figure>
-      <figure class="front" id="cover">
-        <h1>Book Title</h1>
-        <p>A story of pages turning beautifully.</p>
-      </figure>';
-$html.=$this->BookCover_back($coverphoto , $title , $slug = '', $dir='back');
+      ';
+$html.=$this->BookCover_back($coverphoto , $title , $slug = '', $dir='front');
     $html .='</div>';
 }
 
 
-public function BookCover_back($coverphoto , $title , $slug = '', $dir='back'){
+public function BookCover_back($coverphoto , $title , $slug = '', $dir='front'){
  $s_title = $slug ? '<p>' . $slug . '</p>'  : ''; 
   return '
-    
-      <figure class="'.$dir.'" id="front-cover" style="background-image: url('.$coverphoto.');">
-        <h1>Book Title</h1>
-        <p>A story of pages turning beautifully.</p>
-      </figure>
+   <figure class="back" style="background-color: #e0e0e0;">
+    <div class="gray-side-content">
+      <h2>Velvet Nights</h2>
+      <p>A love that never should have started. A silence that speaks volumes.</p>
+    </div>
+  </figure>
     ';
 }
 

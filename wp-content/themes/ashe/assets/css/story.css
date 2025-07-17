@@ -26,7 +26,13 @@
 .container > .right {
   position: absolute;
   height: 100%;
-  width: 50%;
+  @media (max-width: 1200px) {
+     width: 100%;   
+    }
+    @media (min-width: 1200px) {
+     width: 50%;   
+    }
+  
   transition: 0.7s ease-in-out;
   transform-style: preserve-3d;
 }
@@ -119,3 +125,4 @@
   background-size: cover !important;
     background-position: top !important;
 }
+
