@@ -96,15 +96,19 @@ $html.=$this->BookCover_back($coverphoto , $title , $slug = '', $dir='front');
 }
 
 
-public function BookCover_back($coverphoto , $title , $slug = '', $dir='front'){
- $s_title = $slug ? '<p>' . $slug . '</p>'  : ''; 
+public function BookCover_back($coverphoto , $title ){
+ 
   return '
-   <figure class="back" style="background-color: #e0e0e0;">
-    <div class="gray-side-content">
-      <h2>Velvet Nights</h2>
-      <p>A love that never should have started. A silence that speaks volumes.</p>
-    </div>
-  </figure>
+  <div class="right">
+      <figure class="back" id="back-cover">
+       
+         <img src="'.$coverphoto.'"/>
+       </figure>
+       <figure class="front bkcover" >
+         <h2>END</h2>
+         <p>Rigts and shit...</p>
+       </figure>
+     </div>
     ';
 }
 
@@ -114,6 +118,8 @@ public function BookCover_back($coverphoto , $title , $slug = '', $dir='front'){
 
 
 public function BookHtml(){
+  $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
+
 $html = '';
 $html .= 
     '<div class="book-section">
@@ -122,6 +128,8 @@ $html .=
     <div class="spine"></div>
 ';
 
+
+$html .=$this->BookCover_back(esc_url($thumbnail_url) ,  get_the_title() );
 
 // $html .='
 //     <!-- Page 3 (Back Cover) -->
@@ -163,7 +171,6 @@ $html .=
 // ';
 
 $html .= $this->renderBookPages(array_reverse($this->Pages));
-$thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
 
 $html .= $this->BookCover(esc_url($thumbnail_url) ,  get_field('story_title', get_the_ID()) , get_field('summery', get_the_ID()));
  
