@@ -1,9 +1,10 @@
 <?php 
 
-class WisamPostTypes{
+class WisamPostTypes {
 
-public function __construct() {
+	public function __construct() {
 		add_action('init', array($this, 'register_story_post_type'));
+		
 	}
 
 	public function register_story_post_type() {
@@ -36,13 +37,14 @@ public function __construct() {
 			'item_scheduled'           => 'Story scheduled.',
 			'item_updated'             => 'Story updated.',
 			'item_link'                => 'Story Link',
-			'item_link_description'    => 'A link to a story.',
+			'item_link_description'    => 'A link to a story.'
 		);
 
 		$args = array(
 			'labels'             => $labels,
 			'public'             => true,
 			'show_in_rest'       => true,
+			'show_in_nav_menus'  => true, // ← correct placement here
 			'menu_position'      => 1,
 			'menu_icon'          => 'dashicons-book',
 			'supports'           => array(
@@ -59,7 +61,5 @@ public function __construct() {
 		);
 
 		register_post_type('story', $args);
-	} 
-
-
+	}
 }

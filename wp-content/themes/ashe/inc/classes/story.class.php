@@ -53,8 +53,8 @@ public function renderBookPages($pages) {
                 $left_cover = !empty($left['book_page_photo_cover']['url']) ? esc_url($left['book_page_photo_cover']['url']) : '';
 
                 $html .= '<figure class="back" style="background-image: url(' . $left_cover . ');">';
-                $html .= '<h2>' . $left_title . '</h2>';
-                $html .= '<p>' . $left_content . '</p>';
+                $html .= '<h6>' . $left_title . '</h6>';
+                $html .= '<div class"book_page_content">' . strip_tags($left_content) . '</div>';
                 $html .= '</figure>';
             }
 
@@ -66,8 +66,8 @@ public function renderBookPages($pages) {
                 $right_cover = !empty($right['book_page_photo_cover']['url']) ? esc_url($right['book_page_photo_cover']['url']) : '';
 
                 $html .= '<figure class="front" style="background-image: url(' . $right_cover . ');">';
-                $html .= '<h2>' . $right_title . '</h2>';
-                $html .= '<p>' . $right_content . '</p>';
+                $html .= '<h6>' . $right_title . '</h6>';
+                $html .= '<div class"book_page_content">' . strip_tags($right_content) . '</div>';
                 $html .= '</figure>';
             }
 

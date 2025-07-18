@@ -2,6 +2,17 @@
 * {
   box-sizing: border-box;
 }
+
+.book_page_content{
+  font-size: 11px !important;
+  font-weight: 200 !important;
+  text-align: left !important;
+  overflow:auto;
+  padding: 20px;
+  height: auto;
+
+}
+
 .book-section {
   min-height: 100vh;
   width: 100%;
@@ -126,3 +137,8 @@
     background-position: top !important;
 }
 
+.book_page_content p{
+  font-size: 11px !important;
+  font-weight: 200 !important;
+  text-align: left !important;
+ }

@@ -992,7 +992,9 @@ function ashe_register_recommended_plugins() {
 	);
 	tgmpa( $plugins, $config );
 }
-
+add_action('init', function() {
+    flush_rewrite_rules();
+});
 // add_action( 'tgmpa_register', 'ashe_register_recommended_plugins' );
 
 add_filter('template_include', function($template) {
