@@ -3,8 +3,16 @@
 class StoryBook{
     
     
+  public $stories ; 
+  public $Pages ; 
 public function __construct() {
   add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+  $this->stories = get_field('stories', get_the_ID()); 
+  $this->Pages = $this->stories['book_pages'] ;
+//   echo '<pre>';
+// print_r($this->stories['book_pages']);
+// echo '</pre>';
+  
 }
 	public function enqueue_assets() {
         // CSS file
@@ -24,6 +32,52 @@ public function __construct() {
             true // Load in footer
         );
     }
+
+
+
+public function renderBookPages($pages) {
+    
+    $html = '';
+
+    if (!empty($pages)) {
+        $total = count($pages);
+
+        for ($i = 0; $i < $total; $i += 2) {
+            $html .= '<div class="right">';
+
+            // Left Page (back)
+            if (isset($pages[$i])) {
+                $left = $pages[$i];
+                $left_title = esc_html($left['page_title']);
+                $left_content = wp_kses_post($left['book_page']);
+                $left_cover = !empty($left['book_page_photo_cover']['url']) ? esc_url($left['book_page_photo_cover']['url']) : '';
+
+                $html .= '<figure class="back" style="background-image: url(' . $left_cover . ');">';
+                $html .= '<h2>' . $left_title . '</h2>';
+                $html .= '<p>' . $left_content . '</p>';
+                $html .= '</figure>';
+            }
+
+            // Right Page (front)
+            if (isset($pages[$i + 1])) {
+                $right = $pages[$i + 1];
+                $right_title = esc_html($right['page_title']);
+                $right_content = wp_kses_post($right['book_page']);
+                $right_cover = !empty($right['book_page_photo_cover']['url']) ? esc_url($right['book_page_photo_cover']['url']) : '';
+
+                $html .= '<figure class="front" style="background-image: url(' . $right_cover . ');">';
+                $html .= '<h2>' . $right_title . '</h2>';
+                $html .= '<p>' . $right_content . '</p>';
+                $html .= '</figure>';
+            }
+
+            $html .= '</div>'; // end .right
+        }
+    }
+
+    return $html;
+}
+
 
 
 
@@ -69,45 +123,46 @@ $html .=
 ';
 
 
-$html .='
-    <!-- Page 3 (Back Cover) -->
-    <div class="right">
-      <figure class="back" id="back-cover">
-        <h2>Back Cover</h2>
-        <p>Thanks for reading!</p>
-      </figure>
-      <figure class="front" style="background-image: url();">
-        <h2>Page 3</h2>
-        <p>This is the content on the right side of page 3.</p>
-      </figure>
-    </div>
+// $html .='
+//     <!-- Page 3 (Back Cover) -->
+//     <div class="right">
+//       <figure class="back" id="back-cover">
+//         <h2>Back Cover</h2>
+//         <p>Thanks for reading!</p>
+//       </figure>
+//       <figure class="front" style="background-image: url();">
+//         <h2>Page 3</h2>
+//         <p>This is the content on the right side of page 3.</p>
+//       </figure>
+//     </div>
 
-    <!-- Page 2 -->
-    <div class="right">
-      <figure class="back" style="background-image: url();">
-        <h2>Page 2</h2>
-        <p>This is the content on the left side of page 2.</p>
-      </figure>
-      <figure class="front" style="background-image: url();">
-        <h2>Page 2</h2>
-        <p>This is the content on the right side of page 2.</p>
-      </figure>
-    </div>
+//     <!-- Page 2 -->
+//     <div class="right">
+//       <figure class="back" style="background-image: url();">
+//         <h2>Page 2</h2>
+//         <p>This is the content on the left side of page 2.</p>
+//       </figure>
+//       <figure class="front" style="background-image: url();">
+//         <h2>Page 2</h2>
+//         <p>This is the content on the right side of page 2.</p>
+//       </figure>
+//     </div>
 
-    <!-- Page 1 -->
-    <div class="right">
-      <figure class="back" style="background-image: url();">
-        <h2>Page 1</h2>
-        <p>This is the content on the left side of page 1.</p>
-      </figure>
-      <figure class="front" style="background-image: url();">
-        <h2>Page 1</h2>
-        <p>This is the content on the right side of page 1.</p>
-      </figure>
-    </div>
-';
+//     <!-- Page 1 -->
+//     <div class="right">
+//       <figure class="back" style="background-image: url();">
+//         <h2>Page 1</h2>
+//         <p>This is the content on the left side of page 1.</p>
+        
+//       </figure>
+//       <figure class="front" style="background-image: url();">
+//         <h2>Page 1</h2>
+//         <p>This is the content on the right side of page 1.</p>
+//       </figure>
+//     </div>
+// ';
 
-
+$html .= $this->renderBookPages(array_reverse($this->Pages));
 $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
 
 $html .= $this->BookCover(esc_url($thumbnail_url) ,  get_field('story_title', get_the_ID()) , get_field('summery', get_the_ID()));
