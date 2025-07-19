@@ -132,10 +132,11 @@
   font-size: 11px;
 }
 .bkcover{
- background-size: cover !important;
-background-position: center !important;
-background-repeat: no-repeat !important;
 
+background-position: top !important;
+    background-repeat: no-repeat !important;
+    background: fixed;
+    background-size: 50% 100% !important;
 }
 
 
@@ -150,4 +151,3 @@ background-repeat: no-repeat !important;
   overflow-x: hidden !important;
 
 }
-
