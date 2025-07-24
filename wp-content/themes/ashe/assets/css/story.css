@@ -131,12 +131,13 @@
   color: rgba(0, 0, 0, 0.8);
   font-size: 11px;
 }
-.bkcover{
 
-background-position: top !important;
-    background-repeat: no-repeat !important;
-    background: fixed;
-    background-size: 50% 100% !important;
+.bkcover{
+  background-color: #ef9f00;
+ background-size:contain !important;
+background-position: center !important;
+background-repeat: no-repeat !important;
+
 }
 
 
@@ -151,3 +152,4 @@ background-position: top !important;
   overflow-x: hidden !important;
 
 }
+
